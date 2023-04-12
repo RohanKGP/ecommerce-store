@@ -8,10 +8,17 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
+const user_routes = require("./routes/user");
+const products_routes = require("./routes/products");
+
 app.get("/", (req, res) => {
   res.send("Hi there on MainPage");
 });
 
-app.listen(PORT, "0.0.0.0", () => {
+// middleware or to set router
+app.use("/api/user", user_routes);
+app.use("/api/products", products_routes);
+
+app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`);
 });
