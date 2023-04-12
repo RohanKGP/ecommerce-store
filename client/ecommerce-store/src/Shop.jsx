@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Product } from "./Product";
 
-export const Shop = () => {
+export const Shop = (props) => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     const getResponse = async () => {
@@ -20,8 +20,13 @@ export const Shop = () => {
   return (
     <div className="m-4 h-1/2 flex flex-wrap flex-row gap-x-10 gap-y-10 justify-center items-stretch">
       {products.map((product) => {
-        console.log(product.product_id);
-        return <Product product={product} />;
+        return (
+          <Product
+            product={product}
+            cart={props.cart}
+            cartHandler={props.cartHandler}
+          />
+        );
       })}
     </div>
   );
