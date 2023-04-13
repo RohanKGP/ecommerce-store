@@ -43,7 +43,7 @@ function Login() {
   }
 
   if (isAuthenticated) {
-    return <DashBoard />;
+    return <DashBoard email={email} />;
   }
 
   return (

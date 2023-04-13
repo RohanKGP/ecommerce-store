@@ -4,7 +4,7 @@ import Header from "./Header";
 import { Shop } from "./Shop";
 import { Cart } from "./Cart";
 
-function DashBoard() {
+function DashBoard(props) {
   const [cart, setCart] = useState([]);
 
   return (
@@ -18,7 +18,9 @@ function DashBoard() {
           />
           <Route
             path="/cart"
-            element={<Cart cart={cart} cartHandler={setCart} />}
+            element={
+              <Cart cart={cart} cartHandler={setCart} email={props.email} />
+            }
           />
         </Routes>
       </Router>

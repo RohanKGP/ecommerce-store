@@ -1,13 +1,79 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
 export const Cart = (props) => {
+  const [list, setList] = useState(props.cart);
 
-  const [count,setCount] = useState('');
+  useEffect(() => {
+    const temp = list.map((item) => {
+      let tempData = { ...item };
+      tempData.order_count = 1; // Copy objec/ Set new field
+      return tempData;
+    });
+
+    setList(temp);
+  }, []);
+
+  console.log(props.email);
+
+  function handleIncrease(param1) {
+    // param 1: product_id
+
+    const index = list.findIndex((obj) => obj.product_id === param1);
+
+    if (index !== -1) {
+      const updatedList = [...list];
+      const oldOrderCount = updatedList[index].order_count;
+      const newOrderCount = Math.max(oldOrderCount + 1, 2); // ensure new order count is always greater than 1
+      updatedList[index] = {
+        ...updatedList[index],
+        order_count: newOrderCount,
+      };
+      setList(updatedList);
+    }
+  }
+
+  function handleDecrease(param1) {
+    // param 1: product_id
+    const index = list.findIndex((obj) => obj.product_id === param1);
+
+    if (index !== -1) {
+      const updatedList = [...list];
+      const oldOrderCount = updatedList[index].order_count;
+      const newOrderCount = Math.max(oldOrderCount - 1, 1); // ensure new order count is always greater than 1
+      updatedList[index] = {
+        ...updatedList[index],
+        order_count: newOrderCount,
+      };
+      setList(updatedList);
+    }
+  }
+
+  function handleRemove(param1) {
+    // param 1: product_id
+
+    // remove the object with the specified ID from the array
+    const updatedList = list.filter((item) => item.product_id !== param1);
+
+    // update the state variable with the new array
+    setList(updatedList);
+  }
+
+  function handleOrders() {
+    console.log(list);
+  }
+
   return (
     <div>
-      <h1 className="text-center text-3xl	">Your Cart items: </h1>
+      <div className="flex m-4">
+        <h1 className="text-center text-3xl">Your Cart items:</h1>
+        <button
+          onClick={handleOrders}
+          className="text-white bg-blue-700 hover:bg-blue-80 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
+        >
+          Order
+        </button>
+      </div>
       <div className="m-4 h-1/2 flex flex-wrap flex-row gap-x-10 gap-y-10 justify-center items-stretch">
-        {props.cart.map((item) => {
+        {list.map((item) => {
           return (
             <div
               key={item.product_id}
@@ -25,16 +91,30 @@ export const Cart = (props) => {
                 </div>
               </div>
               {/* Price + Button */}
-              <div className="flex flex-row flex-wrap m-3 items-center justify-between">
+              <div className="flex flex-col flex-wrap m-3 items-center justify-between">
                 <p className="font-bold text-gray-900 dark:text-white">
                   {item.price}
                 </p>
-                <button className="text-white bg-blue-700 hover:bg-blue-80 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700">
-                  +
-                </button>
-                <p>{count}</p>
-                <button className="text-white bg-blue-700 hover:bg-blue-80 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700">
-                  -
+                <div className="flex flex-row m-10">
+                  <button
+                    onClick={() => handleDecrease(item.product_id)}
+                    className="text-white bg-blue-700 hover:bg-blue-80 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
+                  >
+                    -
+                  </button>
+                  <p className="text-white m-3 p-2"> {item.order_count}</p>
+                  <button
+                    onClick={() => handleIncrease(item.product_id)}
+                    className="text-white bg-blue-700 hover:bg-blue-80 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
+                  >
+                    +
+                  </button>
+                </div>
+                <button
+                  onClick={() => handleRemove(item.product_id)}
+                  className="text-white bg-blue-700 hover:bg-blue-80 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
+                >
+                  Remove item
                 </button>
               </div>
             </div>
