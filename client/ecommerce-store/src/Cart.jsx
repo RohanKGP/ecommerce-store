@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export const Cart = (props) => {
   const [list, setList] = useState(props.cart);
 
@@ -80,12 +84,19 @@ export const Cart = (props) => {
       });
   }
 
+  // Todo: notification
+  const notify = () =>
+    toast("Order Placed Successfully, A Confirmation E-mail is sent to you!");
+
   return (
     <div>
-      <div className="flex m-4">
-        <h1 className="text-center text-3xl">Your Cart items:</h1>
+      <div className="flex m-10 justify-evenly">
+        <h1 className="text-center text-3xl">Your Cart Items</h1>
         <button
-          onClick={handleOrders}
+          onClick={() => {
+            handleOrders();
+            notify();
+          }}
           className="text-white bg-blue-700 hover:bg-blue-80 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
         >
           Order
@@ -140,6 +151,7 @@ export const Cart = (props) => {
           );
         })}
       </div>
+      <ToastContainer />
     </div>
   );
 };
