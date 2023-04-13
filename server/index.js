@@ -10,6 +10,7 @@ app.use(express.json());
 
 const user_routes = require("./routes/user");
 const products_routes = require("./routes/products");
+const orders_routes = require("./routes/orders");
 
 app.get("/", (req, res) => {
   res.send("Hi there on MainPage");
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 // middleware or to set router
 app.use("/api/user", user_routes);
 app.use("/api/products", products_routes);
+app.use("/api/orders", orders_routes);
 
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`);

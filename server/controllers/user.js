@@ -1,19 +1,29 @@
 const { sendUserToDb } = require("../utils/supabase");
+const { getUsers } = require("../utils/supabase");
 
 async function sendToDb(user) {
   sendUserToDb(user);
 }
 
-const loginUser = (req, res) => {
-  // Todo : sends user data from database to client
-  // getting email and password from login button
-
+async function loginUser(req, res) {
   const user = req.body;
-  console.log(user);
-};
+
+  var value = await getUsers(user);
+
+  if (value == "Invalid email or password") {
+    return res.status(200).json({
+      message: value,
+    });
+  } else {
+    return res.status(200).json({
+      message: value,
+      success: true,
+    });
+  }
+}
 
 const addUser = (req, res) => {
-  // Todo : saves user information to redis
+  // Todo : saves user information to supabase
   // Getting Email and Password from Sign Up Button
   const user = req.body;
 

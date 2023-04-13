@@ -17,6 +17,26 @@ async function sendUserToDb(user) {
   }
 }
 
+async function getUsers(user) {
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("email_id", user.email)
+    .eq("password", user.password);
+
+  if (error) {
+    console.log(error);
+    return error;
+  } else if (data.length === 0) {
+    // console.log("Invalid email or password");
+    return "Invalid email or password";
+  } else {
+    // console.log("Login successful");
+    return "Login successful";
+    // Do something else, such as redirecting the user to a dashboard page
+  }
+}
+
 async function getAllProducts() {
   const { data, error } = await supabase.from("products").select();
 
@@ -31,4 +51,5 @@ async function getAllProducts() {
 module.exports = {
   sendUserToDb,
   getAllProducts,
+  getUsers,
 };

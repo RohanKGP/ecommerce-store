@@ -58,7 +58,26 @@ export const Cart = (props) => {
   }
 
   function handleOrders() {
-    console.log(list);
+    const url = "http://localhost:3000/api/orders/getOrders";
+
+    fetch(url, {
+      // method Changes
+      method: "POST",
+      body: JSON.stringify({
+        email: props.email,
+        list: list,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
