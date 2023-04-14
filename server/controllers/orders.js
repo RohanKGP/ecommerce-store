@@ -1,15 +1,15 @@
+require("dotenv").config();
+
 const nodemailer = require("nodemailer");
 
 async function sendEmail(data) {
-  console.log(data.email);
-  console.log(data.list);
-
   // create reusable transporter object using the default SMTP transport
+
   let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
       user: "meshramrohan786@gmail.com",
-      pass: "ebbkfrwvyxqxqgle",
+      pass: process.env.PASS,
     },
   });
 
@@ -22,6 +22,7 @@ async function sendEmail(data) {
     <div style="flex: 2; padding: 0 20px;">
       <h3 style="color: #333; font-size: 18px;">${product.title}</h3>
       <p style="font-size: 16px; color: #666;">${product.price}</p>
+      <p style="font-size: 16px; color: #666;">Quantity: ${product.order_count}</p>
     </div>
   </li>`;
   });
@@ -41,8 +42,6 @@ async function sendEmail(data) {
   </div>`, // html body
   };
 
-  console.log(`List String: ${listString}`);
-
   await transporter.sendMail(info, (err) => {
     if (err) {
       console.log("Error in Sending mail", err);
@@ -50,8 +49,6 @@ async function sendEmail(data) {
       console.log("Email has sent");
     }
   });
-
-  // console.log(`Message sent: ${JSON.stringify(info)}`);
 }
 
 async function getOrders(req, res) {

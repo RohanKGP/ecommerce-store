@@ -1,9 +1,10 @@
 const { createClient } = require("@supabase/supabase-js");
+require("dotenv").config();
 
 // Create a single supabase client for interacting with your database;
 const supabase = createClient(
-  "https://bacedsdzgopyongjyrkr.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJhY2Vkc2R6Z29weW9uZ2p5cmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODEyNDUzNzcsImV4cCI6MTk5NjgyMTM3N30.nkLls2D-asBYfHdtY0Rrf_j0lnh-DFTE8Ek0y6HpCXw"
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
 );
 
 async function sendUserToDb(user) {

@@ -65,7 +65,9 @@ export const Cart = (props) => {
 
   function handleOrders() {
     if (list.length > 0) {
-      const url = "http://localhost:3000/api/orders/getOrders";
+      const url = `http://${import.meta.env.VITE_BACKEND_HOST}:${
+        import.meta.env.VITE_BACKEND_PORT
+      }/api/orders/getOrders`;
 
       fetch(url, {
         // method Changes
@@ -91,9 +93,6 @@ export const Cart = (props) => {
       toast("Empty Cart!");
     }
   }
-
-  console.log(`List inside the cart: ${JSON.stringify(list)}`);
-  console.log(`Cart item list: ${JSON.stringify(props.cart)}`);
 
   return (
     <div>

@@ -8,12 +8,18 @@ function Login() {
   const [errorMsg, setErrorMsg] = useState("");
   const [isAuthenticated, setAuthStatus] = useState(false);
 
+  console.log();
+
   function Signup(signup) {
     let url = "";
     if (signup) {
-      url = "http://localhost:3000/api/user/addUser";
+      url = `http://${import.meta.env.VITE_BACKEND_HOST}:${
+        import.meta.env.VITE_BACKEND_PORT
+      }/api/user/addUser`;
     } else {
-      url = "http://localhost:3000/api/user/loginUser";
+      url = `http://${import.meta.env.VITE_BACKEND_HOST}:${
+        import.meta.env.VITE_BACKEND_PORT
+      }/api/user/loginUser`;
     }
 
     fetch(url, {

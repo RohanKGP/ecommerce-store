@@ -6,7 +6,9 @@ export const Shop = (props) => {
   useEffect(() => {
     const getResponse = async () => {
       const response = await fetch(
-        "http://localhost:3000/api/products/getProducts",
+        `http://${import.meta.env.VITE_BACKEND_HOST}:${
+          import.meta.env.VITE_BACKEND_PORT
+        }/api/products/getProducts`,
         {
           method: "GET",
         }
