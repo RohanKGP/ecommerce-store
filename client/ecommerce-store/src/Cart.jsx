@@ -57,34 +57,43 @@ export const Cart = (props) => {
 
     // update the state variable with the new array
     setList(updatedList);
+
+    const handlerList = props.cart.filter((item) => item.product_id !== param1);
+    // update the props.cartHandler with the new array
+    props.cartHandler(handlerList);
   }
 
   function handleOrders() {
-    const url = "http://localhost:3000/api/orders/getOrders";
+    if (list.length > 0) {
+      const url = "http://localhost:3000/api/orders/getOrders";
 
-    fetch(url, {
-      // method Changes
-      method: "POST",
-      body: JSON.stringify({
-        email: props.email,
-        list: list,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+      fetch(url, {
+        // method Changes
+        method: "POST",
+        body: JSON.stringify({
+          email: props.email,
+          list: list,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      toast("Order Placed Successfully, A Confirmation E-mail is sent to you!");
+    } else {
+      toast("Empty Cart!");
+    }
   }
 
-  // Todo: notification
-  const notify = () =>
-    toast("Order Placed Successfully, A Confirmation E-mail is sent to you!");
+  console.log(`List inside the cart: ${JSON.stringify(list)}`);
+  console.log(`Cart item list: ${JSON.stringify(props.cart)}`);
 
   return (
     <div>
@@ -93,7 +102,6 @@ export const Cart = (props) => {
         <button
           onClick={() => {
             handleOrders();
-            notify();
           }}
           className="text-white bg-blue-700 hover:bg-blue-80 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
         >
@@ -160,7 +168,19 @@ export const Cart = (props) => {
           );
         })}
       </div>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={500}
+        limit={0}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

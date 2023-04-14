@@ -7,7 +7,7 @@ export const Product = (props) => {
   const { product_id, title, price, description, image, count } = props.product;
 
   function handleCart() {
-    // toast("Item Added to Cart!");
+    toast("Item Added to Cart!");
 
     const exists = props.cart.some(
       (product) => product.product_id === props.product.product_id
@@ -45,7 +45,19 @@ export const Product = (props) => {
         </button>
       </div>
 
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={100}
+        limit={0}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
