@@ -7,41 +7,44 @@ export const Product = (props) => {
   const { product_id, title, price, description, image, count } = props.product;
 
   function handleCart() {
-    props.cartHandler((prev) => [...prev, props.product]);
+    // toast("Item Added to Cart!");
+
+    const exists = props.cart.some(
+      (product) => product.product_id === props.product.product_id
+    );
+
+    if (exists === false) {
+      props.cartHandler((prev) => [...prev, props.product]);
+    }
   }
 
-  // Todo: notification
-  const notify = () => toast("Item Added to Cart!");
-
   return (
-    <div className="flex-1 grow-0 basis-1/4 gap-x-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      {/* Image + Desc */}
-      <div className="m-3">
-        <div className=" p-8 rounded-t-lg">
-          <img src={image} alt={title} />
-        </div>
-        <div className="px-5 pb-5">
-          <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-            {title}
-          </h5>
-          <p className="text-neutral-600 dark:text-neutral-200">
-            {description}
-          </p>
-        </div>
+    <div className="grid grid-cols-4 grid-rows-5 rounded-md bg-white">
+      <img
+        className="col-start-2 row-start-1 col-span-2 row-span-2 w-full h-full p-4"
+        src={image}
+        alt={title}
+      />
+      <div className="col-start-1 row-start-3 col-span-4 row-span-2 p-2">
+        <p className="text-center">
+          <b>{title}</b>
+        </p>
+        <p className="text-center">{description}</p>
       </div>
-      {/* Price + Button */}
-      <div className="flex flex-row flex-wrap m-3 items-center justify-between">
-        <p className="font-bold text-gray-900 dark:text-white">{price}</p>
+      <div className="col-start-1 row-start-5 col-span-2 row-span-1 p-4">
+        <p className="">{price}</p>
+      </div>
+      <div className="col-start-3 col-span-2 row-start-5 row-span-1 p-4">
         <button
           className="text-white bg-blue-700 hover:bg-blue-80 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
           onClick={() => {
             handleCart();
-            notify();
           }}
         >
           Add to cart
         </button>
       </div>
+
       <ToastContainer />
     </div>
   );

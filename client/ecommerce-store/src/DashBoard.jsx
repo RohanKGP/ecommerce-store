@@ -8,7 +8,7 @@ function DashBoard(props) {
   const [cart, setCart] = useState([]);
 
   return (
-    <div>
+    <div className=" bg-slate-300">
       <Router>
         <Header />
         <Routes>

@@ -16,8 +16,6 @@ export const Cart = (props) => {
     setList(temp);
   }, []);
 
-  console.log(props.email);
-
   function handleIncrease(param1) {
     // param 1: product_id
 
@@ -102,50 +100,61 @@ export const Cart = (props) => {
           Order
         </button>
       </div>
-      <div className="m-4 h-1/2 flex flex-wrap flex-row gap-x-10 gap-y-10 justify-center items-stretch">
+      <div
+        className="m-0 p-5 bg-slate-300
+      grid gap-6 grid-cols-4 auto-rows-[minmax(0,400px)]
+      lg:auto-rows-[minmax(0,600px)] lg:grid-cols-4 
+      md:auto-rows-[minmax(0,600px)] md:grid-cols-2 
+      sm:auto-rows-[minmax(0,600px)] sm:grid-cols-1 
+      max-[640px]:grid-cols-1  max-[640px]:auto-rows-[minmax(0,600px)]"
+      >
         {list.map((item) => {
           return (
             <div
               key={item.product_id}
-              className="flex-1 grow-0 basis-1/4 gap-x-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+              className="grid grid-cols-4 grid-rows-6 rounded-md bg-white"
             >
-              {/* Image + Desc */}
-              <div className="m-3">
-                <div className=" p-8 rounded-t-lg">
-                  <img src={item.image} alt={item.title} />
-                </div>
-                <div className="px-5 pb-5">
-                  <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                    {item.title}
-                  </h5>
-                </div>
-              </div>
-              {/* Price + Button */}
-              <div className="flex flex-col flex-wrap m-3 items-center justify-between">
-                <p className="font-bold text-gray-900 dark:text-white">
-                  {item.price}
+              <img
+                className="col-start-2 row-start-1 col-span-2 row-span-2 w-full h-full p-4"
+                src={item.image}
+                alt={item.title}
+              />
+              <div className="col-start-1 row-start-3 col-span-4 row-span-2 p-2">
+                <p className="text-center">
+                  <b>{item.title}</b>
                 </p>
-                <div className="flex flex-row m-10">
+                <p className="text-center">{item.description}</p>
+              </div>
+              <div className="col-start-1 row-start-5 col-span-4 row-span-1 p-4">
+                <p className="text-center">{item.price}</p>
+              </div>
+              <div className="flex flex-row justify-evenly items-start col-start-1 col-span-4 row-start-6 row-span-1 p-2">
+                <div className="flex flex-row p-2 ">
                   <button
                     onClick={() => handleDecrease(item.product_id)}
-                    className="text-white bg-blue-700 hover:bg-blue-80 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
+                    className="text-white bg-blue-700 hover:bg-blue-80 rounded-lg p-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
                   >
                     -
                   </button>
-                  <p className="text-white m-3 p-2"> {item.order_count}</p>
+                  <p className="text-black  text-center m-2">
+                    {" "}
+                    {item.order_count}
+                  </p>
                   <button
                     onClick={() => handleIncrease(item.product_id)}
-                    className="text-white bg-blue-700 hover:bg-blue-80 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
+                    className="text-white bg-blue-700 hover:bg-blue-80 rounded-lg p-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
                   >
                     +
                   </button>
                 </div>
-                <button
-                  onClick={() => handleRemove(item.product_id)}
-                  className="text-white bg-blue-700 hover:bg-blue-80 font-medium rounded-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
-                >
-                  Remove item
-                </button>
+                <div className="p-2 ">
+                  <button
+                    onClick={() => handleRemove(item.product_id)}
+                    className="text-white bg-blue-700 hover:bg-blue-80  rounded-lg p-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
             </div>
           );
