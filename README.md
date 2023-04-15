@@ -12,7 +12,8 @@ This is a web application for an E-commerce website built using React, Nodejs, a
 
 ## Features
 
-- User registration and login functionality using Supabase authentication
+- User registration and login functionality using Supabase
+- Fetching List of Products via Database
 - Shopping cart functionality with the ability to add and remove items
 - Email notification to user upon order confirmation using NodeMailer
 
