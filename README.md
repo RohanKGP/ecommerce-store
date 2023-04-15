@@ -7,7 +7,9 @@ This is a web application for an E-commerce website built using React, Nodejs, a
 
 **Client:** React, TailwindCSS
 
-**Server:** Node, Express, NodeMailer, Supabase. 
+**Server:** Node, Express, NodeMailer
+
+**Database:** Supabase
 
 
 ## Features
